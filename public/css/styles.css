@@ -1,6 +1,352 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
+
+:root {
+    /* color palette for webpage */
+    --primary-color: #2a6bac;
+    --secondary-color: #133a7c;
+    --tertiary-color: #081534;
+    --accent-color: #47a8e5;
+    --accent-color2: #f68f1e;
+    --light-grey: #c6c6c6;
+    --medium-grey: #939599;
+    --dark-grey: #242021;
+    --background: #ffffff;
+
+    /* font styles for webpage */
+    --font-heading: 'Oswald', sans-serif;
+    --font-paragraph: 'Merriweather', serif;
+
+    /* sizes */
+    --font-base: 20px;
+    --small-font: 0.8em;
+    --large-font: 1.2em;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+    font-family: var(--font-paragraph);
+    font-size: var(--font-base);
+    color: var(--tertiary-color);
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+/******* Headings ***************/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-style: normal;
+}
+h1 {
+    font-size: 2.5em;
+}
+h2 {
+    font-size: 2em;
+}
+h3 {
+    font-size: 1.75em;
+}
+h4 {
+    font-size: 1.5em;
+}
+
 /******* Change Box Model ***************/
 *,
 *:before,
 *:after {
-  box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/******* Wrapper ***************/
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: var(--background);
+}
+
+#wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    background-color: var(--background);
+}
+
+@media (min-width: 768px) {
+    body {
+        background-image: url("/images/site/small_check.jpg");
+    }
+    #wrapper {
+        box-sizing: border-box;
+        border-radius: 5px;
+        border: 5px solid var(--accent-color);
+        margin: 2em 5em;
+    }
+}
+
+/******* Header ***************/
+#top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--background);
+    overflow: hidden;
+    padding: 20px 30px;
+    font-family: var(--font-heading);
+}
+.siteName a {
+    font-size: 2.5em;
+    font-weight: 800;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+.siteName a:hover {
+    color: var(--secondary-color);
+}
+#tools a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    margin: 0 10px;
+}
+#tools a:hover {
+    color: var(--tertiary-color);
+}
+
+/******* Navigation ***************/
+nav {
+    font-family: var(--font-heading);
+    background-color: var(--tertiary-color);
+    color: white;
+    padding: 10px 0;
+    width: 100%;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+nav li:hover {
+    color: var(--accent-color);
+    cursor: pointer;
+}
+
+/******* Footer ***************/
+footer {
+    display: flex;
+    justify-content: start;
+    padding: 10px;
+    width: 100%;
+}
+.copyright {
+    color: var(--tertiary-color);
+    font-size: 0.8em;
+}
+
+/******* Main Content ***************/
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+}
+
+.page-container {
+    background-color: var(--background);
+    padding: 20px;
+}
+
+/******* Hero Container Content ***************/
+
+.hero-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto auto;
+}
+
+.hero-container h1 {
+    grid-column: 1/13;
+    grid-row: 1;
+    margin-bottom: 10px;
+}
+
+.hero-container picture {
+    grid-column: 4/11;
+    grid-row: 2;
+    flex-shrink: 0;
+}
+
+.hero-container picture img {
+    width: 100%;
+    height: auto;
+}
+
+/* Media Query for Larger Screens */
+@media (min-width: 1024px) {
+    .hero-container picture img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+/* Styling for the article content over the image */
+.hero-container article {
+    display: flex;
+    flex-direction: column;
+    grid-column: 1/6;
+    grid-row: 2;
+    background-color: rgba(255, 255, 255, .9);
+    padding: 15px;
+    border-radius: 5px;
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.hero-container article h2 {
+    font-size: 1.5em;
+    color: var(--primary-color);
+    margin: 0 0 10px;
+}
+
+.hero-container article ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: var(--primary-color);
+    font-size: 1em;
+    font-weight: 600;
+}
+
+/* Media Query for Larger Screens */
+@media (min-width: 1024px) {
+    .hero-container article {
+        grid-column: 2/6;
+    }
+    .hero-container article h2 {
+        font-size: 2em;
+    }
+    .hero-container article ul {
+        font-size: 1.2em;
+    }
+}
+
+.hero-container article ul li {
+    margin-bottom: 5px;
+}
+.hero-container article .img-container {
+    display: flex;
+    justify-content: center;
+}
+
+.hero-container article img {
+    width: 140px;
+    height: auto;
+    cursor: pointer;
+}
+
+/******* Info Container Content ***************/
+/* Grid Areas */
+.upgrades {
+    grid-area: upgrades;
+    display: grid;
+    grid-template-columns: repeat(2, 200px);
+    gap: 20px;
+    justify-content: center;
+}
+
+.reviews {
+    grid-area: reviews;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Info Container */
+.info-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        'reviews'
+        'upgrades';
+    column-gap: 10px;
+}
+
+.info-container h2 {
+    text-align: center;
+    margin: 5px 0;
+}
+
+/* Media Query for Larger Screens */
+@media (min-width: 1024px) {
+    .info-container {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 'upgrades reviews';
+    }
+}
+
+/* Reviews Styles */
+.reviews ul {
+    line-height: 2;
+    font-weight: 600;
+    margin: 0 auto;
+}
+
+/* Upgrades Styles */
+.upgrades h2 {
+    grid-column: span 2;
+    text-align: center;
+}
+
+.upgrades-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.upgrades-item .box {
+    display: flex;
+    background-color: var(--primary-color);
+    justify-content: center;
+    align-items: center;
+    width: 210px;
+    height: 120px;
+}
+
+.upgrades-item .box img {
+    width: 60px;
+    height: auto;
+}
+
+.upgrades-item a {
+    color: var(--primary-color);
+    font-size: 0.8em;
 }
