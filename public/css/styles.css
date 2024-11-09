@@ -11,8 +11,8 @@
     --background: #ffffff;
 
     /* font styles for webpage */
-    --font-heading: Roboto, sans-serif;
-    --font-paragraph: serif;
+    --font-heading: 'Oswald', sans-serif;
+    --font-paragraph: 'Merriweather', serif;
 
     /* sizes */
     --font-base: 20px;
@@ -57,7 +57,7 @@ body {
 }
 @media (min-width: 768px) {
     body {
-        background-image: url("/images/site/small_check.jpg");
+        background-image: url('/images/site/small_check.jpg');
     }
 }
 /******* Headings ***************/
