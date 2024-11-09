@@ -1,18 +1,18 @@
 :root {
     /* color palette for webpage */
-    --primary-color: #2a6bac;
-    --secondary-color: #133a7c;
+    --primary-color: #2466ac;
+    --secondary-color: #11387b;
     --tertiary-color: #081534;
-    --accent-color: #47a8e5;
-    --accent-color2: #f68f1e;
-    --light-grey: #c6c6c6;
-    --medium-grey: #939599;
-    --dark-grey: #242021;
+    --accent-color: #45a6e2;
+    --accent-color2: #f48b1a;
+    --light-grey: #cbcbce;
+    --medium-grey: #8c8e91;
+    --dark-grey: #242023;
     --background: #ffffff;
 
     /* font styles for webpage */
-    --font-heading: 'Oswald', sans-serif;
-    --font-paragraph: 'Merriweather', serif;
+    --font-heading: "Helvetica", sans-serif;
+    --font-paragraph: "Rock Salt", serif;
 
     /* sizes */
     --font-base: 20px;
