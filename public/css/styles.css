@@ -165,6 +165,18 @@ nav li {
     font-weight: bold;
 }
 
+nav li a {
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+nav li a:hover {
+    color: var(--accent-color);
+    cursor: pointer;
+}
+
 nav li:hover {
     color: var(--accent-color);
     cursor: pointer;
@@ -173,6 +185,7 @@ nav li:hover {
 /******* Footer ***************/
 footer {
     display: flex;
+    flex-direction: column;
     justify-content: start;
     padding: 10px;
     width: 100%;
@@ -180,6 +193,14 @@ footer {
 .copyright {
     color: var(--tertiary-color);
     font-size: 0.8em;
+}
+
+footer a {
+    color: var(--primary-color);
+    font-size: .8em;
+}
+footer a:hover {
+    color: var(--accent-color);
 }
 
 /******* Main Content ***************/
@@ -360,4 +381,28 @@ main {
 .upgrades-item a {
     color: var(--primary-color);
     font-size: 0.8em;
+}
+
+/******* Error Page Stylings ***************/
+#error-page {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+}
+#error-page img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Media query for larger screens (1024px and up) */
+@media (min-width: 1024px) {
+    #error-page {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.error-message {
+    display: flex;
+    flex-direction: column;
 }

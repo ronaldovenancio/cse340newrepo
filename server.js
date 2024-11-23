@@ -13,7 +13,6 @@ const baseController = require("./controllers/baseController");
 const inventoryRoute = require("./routes/inventoryRoute");
 const Util = require("./utilities/");
 const utilities = require("./utilities/");
-const pool = require("./database/");
 
 const app = express();
 
@@ -31,24 +30,59 @@ app.use(static);
 // Index route
 
 //app.get("/", baseController.buildHome);
-app.get("/", Util.handleErrors(baseController.buildHome));
-app.get("/", utilities.handleErrors(baseController.buildHome))
-
+//app.get("/", Util.handleErrors(baseController.buildHome));
+app.get("/", utilities.handleErrors(baseController.buildHome));
 // Inventory routes
-app.use("/inv", inventoryRoute);
+app.use("/inv", utilities.handleErrors(inventoryRoute));
+// Error routes
+app.use("/error", utilities.handleErrors(baseController.buildError));
+//app.use("/inv", inventoryRoute);
 
 // File Not Found Route - must be last route in list
+app.use(async (req, res, next) => {
+  const heading = 'You seem to have lost a few parts?'
+  const quote = `Sorry, we couldn't find the page you're looking for :) <br> But you could try any of the pages in the menu-bar.`
+  next({ status: 404, message: utilities.buildErrorMessage(heading, quote) })
+})
+
+/*
 app.use(async (req, res, next) => {
   next({status: 404, message: 'Sorry, we appear to have lost that page.'})
 })
 
-utilities.handleErrors(baseController.buildHome);
+utilities.handleErrors(baseController.buildHome); */
+
 /* ***********************
 * Express Error Handler
 * Place after all other middleware
 *************************/
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav()
+  let title
+  let message
+  console.error(`Error at: "${req.originalUrl}": ${err.status || 500}`)
+  if (err.status === 404) {
+      title = `${err.status} - PAGE NOT FOUND`
+      message = err.message
+  } else {
+      title = `500 - INTERNAL SERVER ERROR`
+      const heading = 'Oh no! There was a crash!'
+      const quote = ` Maybe try watching where you are going next time?`
+      message = utilities.buildErrorMessage(heading, quote)
+  }
+  res.render('errors/error', {
+      title,
+      message,
+      nav,
+  })
+})
+
+
+/*
+app.use(async (err, req, res, next) => {
+  let nav = await utilities.getNav()
+  let title;
+  let message;
   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
   if(err.status == 404){ message = err.message} else {message = 'Oh no! There was a crash. Maybe try a different route?'}
   res.render("errors/error", {
@@ -57,6 +91,10 @@ app.use(async (err, req, res, next) => {
     nav
   })
 })
+*/
+
+
+
 
 /* ***********************
  * Local Server Information

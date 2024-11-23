@@ -75,6 +75,59 @@ Util.buildClassificationGrid = async function (data) {
     return grid
 }
 
+/* **************************************
+ * Build the details view HTML
+ * ************************************ */
+Util.buildDetailsGrid = async function (data) {
+    let grid
+    if (data.length > 0) {
+        grid = '<article id="details-display">'
+        grid +=
+            '<img src="' +
+            data[0].inv_image +
+            '" alt="Image of ' +
+            data[0].inv_make +
+            ' ' +
+            data[0].inv_model +
+            ' on CSE Motors" />'
+        grid += '<div id="details-info">'
+        grid += '<h2>' + data[0].inv_make + ' ' + data[0].inv_model + ' ' + 'Details</h2>'
+        grid += '<p class="price">Price: $' + new Intl.NumberFormat('en-US').format(data[0].inv_price) + '</p>'
+        grid += '<p class="description"><strong>Description:</strong> ' + data[0].inv_description + '</p>'
+        grid += '<ul class="details-list">'
+        grid += '<li><span class="checkbox"></span><strong>Year:</strong> &nbsp;' + data[0].inv_year + '</li>'
+        grid += '<li><span class="checkbox"></span><strong>Make:</strong> &nbsp;' + data[0].inv_make + '</li>'
+        grid += '<li><span class="checkbox"></span><strong>Model:</strong> &nbsp;' + data[0].inv_model + '</li>'
+        grid += '<li><span class="checkbox"></span><strong>Color:</strong> &nbsp;' + data[0].inv_color + '</li>'
+        grid +=
+            '<li><span class="checkbox"></span><strong>Mileage:</strong> &nbsp;' +
+            new Intl.NumberFormat('en-US').format(data[0].inv_miles) +
+            '</li>'
+        grid +=
+            '<li><span class="checkbox"></span><strong>Classification:</strong> &nbsp;' +
+            data[0].classification_name +
+            '</li>'
+        grid += '</ul>'
+        grid += '</div>'
+        grid += '</article>'
+    } else {
+        grid += '<p class="notice">Sorry, no matching vehicles details could be found.</p>'
+    }
+    return grid
+}
+
+/* **************************************
+ * Build Error view HTML
+<image src="/images/site/pexels-pixabay-78793.jpg" alt="404 Error Image - broken car" /> 
+ * ************************************ */
+Util.buildErrorMessage = (heading, quote) => `<section id="error-page">
+    <image src="/images/site/pexels-chrofit-the-man-to-call-2515393-5612021.webp" alt="404 Error Image - broken car" />
+    <div class="error-message">
+    <h2>${heading}</h2>
+    <p class="notice">${quote}</p>
+    </div>
+    </section>`
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for
