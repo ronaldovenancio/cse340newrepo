@@ -1,10 +1,11 @@
-const utilities = require('./')
-const { body, validationResult } = require('express-validator')
-const inventoryModel = require('../models/inventory-model')
+const utilities = require("./")
+const { body, validationResult } = require("express-validator")
+const inventoryModel = require("../models/inventory-model")
 const validate = {}
 
 /*  **********************************
  *  Classification Data Validation Rules
+ * Week 04
  * ********************************* */
 validate.classificationRules = () => {
     return [
@@ -31,6 +32,7 @@ validate.classificationRules = () => {
 
 /* ******************************
  * Check data and return errors or continue to next
+ * Week 04
  * ***************************** */
 validate.checkClassificationData = async (req, res, next) => {
     const { classification_name } = req.body
@@ -51,6 +53,7 @@ validate.checkClassificationData = async (req, res, next) => {
 
 /*  **********************************
  *  Inventory Data Validation Rules
+ * Week 04
  * ********************************* */
 validate.inventoryRules = () => {
     return [
@@ -137,6 +140,7 @@ validate.inventoryRules = () => {
 
 /* ******************************
  * Check data and return errors or continue to next
+ * Week 04
  * ***************************** */
 validate.checkInventoryData = async (req, res, next) => {
     const { classification_id } = req.body
