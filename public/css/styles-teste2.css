@@ -1,29 +1,18 @@
 :root {
     /* color palette for webpage */
-    --primary-color: #2a6bac;
-    --secondary-color: #133a7c;
+    --primary-color: #2466ac;
+    --secondary-color: #11387b;
     --tertiary-color: #081534;
-    --accent-color: #47a8e5;
-    --accent-color2: #f68f1e;
-    --light-grey: #f3f3f3;
-    --medium-grey: #939599;
-    --dark-grey: #242021;
+    --accent-color: #45a6e2;
+    --accent-color2: #f48b1a;
+    --light-grey: #cbcbce;
+    --medium-grey: #8c8e91;
+    --dark-grey: #242023;
     --background: #ffffff;
 
-    --success: #5cb85c;
-    --success-mute: #c3e6cb;
-    --danger: #d9534f;
-    --danger-mute: #98cfef;
-    /*--danger-mute: #eca9a7;*/
-    --warning: #f0ad4e;
-    /*--warning: #f0ad4e; */
-    --warning-mute: #fcf8e3;
-    --primary: #0275d8;
-    --primary-mute: #d9edf7;
-
     /* font styles for webpage */
-    --font-heading: 'Helvetica', sans-serif;
-    --font-paragraph: 'Rock Salt', serif;
+    --font-heading: "Helvetica", sans-serif;
+    --font-paragraph: "Rock Salt", serif;
 
     /* sizes */
     --font-base: 20px;
@@ -100,7 +89,10 @@ h4 {
 *:before,
 *:after {
     box-sizing: border-box;
-}
+    padding: 0;
+    margin: 0;
+    font-family: "Rubik", "Helvetica", sans-serif;
+  }
 
 /******* Wrapper ***************/
 
@@ -167,6 +159,12 @@ nav ul {
     padding: 0;
 }
 
+nav li {
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
 nav li a {
     color: white;
     font-size: 1.2em;
@@ -175,6 +173,11 @@ nav li a {
 }
 
 nav li a:hover {
+    color: var(--accent-color);
+    cursor: pointer;
+}
+
+nav li:hover {
     color: var(--accent-color);
     cursor: pointer;
 }
@@ -191,12 +194,13 @@ footer {
     color: var(--tertiary-color);
     font-size: 0.8em;
 }
+
 footer a {
     color: var(--primary-color);
-    font-size: 0.8em;
+    font-size: .8em;
 }
 footer a:hover {
-    color: var(--secondary-color);
+    color: var(--accent-color);
 }
 
 /******* Main Content ***************/
@@ -401,204 +405,4 @@ main {
 .error-message {
     display: flex;
     flex-direction: column;
-}
-
-/********** Login Form Stylings ************/
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.login-container,
-.registration-container,
-.management-container,
-.add-class-container {
-    width: 100%;
-    max-width: 500px;
-    background: var(--primary-color);
-    color: white;
-    padding: 50px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-.login-container p,
-.registration-container p,
-.management-container p,
-.add-class-container p {
-    font-size: 0.8em;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-.login-container ul,
-.registration-container ul,
-.management-container ul {
-    font-size: 0.8em;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-.management-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-}
-.management-container a {
-    text-decoration: none;
-    text-align: center;
-}
-
-.form-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.input label {
-    display: block;
-    font-weight: bold;
-    color: white;
-    font-size: 0.85em;
-}
-
-.input input,
-.input textarea,
-.input select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    transition: border-color 0.3s ease;
-}
-
-.input input:focus,
-.input textarea:focus,
-.input select:focus {
-    border-color: var(--accent-color);
-    outline: none;
-    box-shadow: 0 0 3px rgba(0, 123, 255, 0.25);
-}
-
-form input:required,
-form textarea:required,
-form select:required {
-    border-left: 8px solid var(--danger);
-}
-
-form input:required:valid,
-form textarea:required:valid,
-form select:required:valid {
-    border-left: 8px solid var(--success);
-    background-color: var(--success-mute);
-}
-form input:required:focus,
-form textarea:required:focus,
-form select:required:focus {
-    outline: none;
-    border: 2px solid var(--accent-color);
-    border-left: 8px solid var(--accent-color);
-    box-shadow: 0 0 5px var(--accent-color);
-}
-
-.submit-button button {
-    width: 100%;
-    padding: 12px;
-    background-color: var(--accent-color);
-    border: none;
-    border-radius: 4px;
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.submit-button button:hover {
-    background-color: var(--secondary-color);
-}
-
-a.submit-button {
-    width: 100%;
-    padding: 12px;
-    background-color: var(--accent-color);
-    border: none;
-    border-radius: 4px;
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-a.submit-button:hover {
-    background-color: var(--secondary-color);
-}
-
-.form-container h3 {
-    text-align: center;
-    margin-top: 10px;
-    color: white;
-}
-
-.form-container h3 a {
-    color: var(--accent-color);
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.form-container h3 a:hover {
-    text-decoration: underline;
-}
-.required {
-    color: var(--danger);
-}
-
-#passWordBtn {
-    border: 2px solid #000;
-    background-color: var(--accent-color);
-    border-radius: 5px;
-    padding: 5px;
-    margin-top: 1em;
-    font-size: small;
-    width: 7em;
-    text-align: center;
-    cursor: pointer;
-}
-#messages ul {
-    margin: 0;
-}
-
-#messages .success {
-    margin-bottom: 1em;
-    padding: 1em;
-    border-radius: 5px;
-    font-size: 0.9em;
-    font-weight: 600;
-    background-color: var(--success-mute);
-}
-#messages .notice {
-    margin-bottom: 1em;
-    padding: 1em;
-    border-radius: 5px;
-    font-size: 0.9em;
-    font-weight: 600;
-    background-color: var(--danger-mute);
-}
-.notice {
-    margin-bottom: 1em;
-    padding: 1em;
-    border-radius: 5px;
-    font-size: 0.9em;
-    font-weight: 600;
-    background-color: var(--danger-mute);
-}
-
-/* Responsive design */
-@media (max-width: 600px) {
-    .login-container {
-        padding: 15px;
-    }
-
-    /* .input input,
-    .submit-button button {
-        font-size: 14px;
-    } */
 }
