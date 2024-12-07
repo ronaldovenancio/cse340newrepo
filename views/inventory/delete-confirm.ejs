@@ -15,21 +15,56 @@
     </ul>
   <% } %>
   
-    <!-- Display body -->
-    <p class="deleteMessage">Confirm Deletion - The delete is permanent.</p>
-    <form id="deleteForm" action="/inv/delete" method="post">
-      <div class="data-box">
-        <label for="inv_make">Make:</label>
-        <input type="text" name="inv_make" id="inv_make" value="<%= inv_make %>" readonly>
-        <label for="inv_model">Model:</label>
-        <input type="text" name="inv_model" id="inv_model" value="<%= inv_model %>" readonly>
-        <label for="inv_year">Year:</label>
-        <input type="text" name="inv_year" id="inv_year" value="<%= inv_year %>" readonly>
-        <label for="inv_price">Price:</label>
-        <input type="number" name="inv_price" id="inv_price" value="<%= inv_price %>" readonly>
-      </div>
-      <button type="submit">Delete Vehicle</button>
-      <input type="hidden" name="inv_id"
-      <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
-      <% } %>>
-    </form>   
+  <div class="container">
+    <div class="edit-class-container">
+        <h4>Confirm Deletion - The delete is permanent.</h4>
+        <form id="deleteForm" class="form-container" action="/inv/delete" method="post">
+            <div class="input">
+                <label for="inv_year">Year</label>
+                <input
+                    type="text"
+                    id="inv_year"
+                    name="inv_year"
+                    value="<%= locals.inv_year %>"
+                    readonly
+                />
+            </div>
+            <div class="input">
+                <label for="inv_make">Make</label>
+                <input
+                    type="text"
+                    id="inv_make"
+                    name="inv_make"
+                    value="<%= locals.inv_make %>"
+                    readonly
+                />
+            </div>
+            <div class="input">
+                <label for="inv_model">Model</label>
+                <input
+                    type="text"
+                    id="inv_model"
+                    name="inv_model"
+                    value="<%= locals.inv_model %>"
+                    readonly
+                />
+            </div>
+
+            <div class="input">
+                <label for="inv_price">Price</label>
+                <input
+                    type="text"
+                    id="inv_price"
+                    name="inv_price"
+                    value="<%= locals.inv_price %>"
+                    readonly
+                />
+            </div>
+
+            <div class="submit-button">
+                <button type="submit" class="delete">Delete Vehicle</button>
+            </div>
+            <input type="hidden" name="inv_id" <% if (locals.inv_id) { %> value="<%= locals.inv_id %>" <% } %>>
+        </form>
+    </div>
+</div>

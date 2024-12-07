@@ -532,6 +532,11 @@ a.submit-button:hover {
     background-color: var(--secondary-color);
 }
 
+.submit-button button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
 .form-container h3 {
     text-align: center;
     margin-top: 10px;
@@ -549,6 +554,11 @@ a.submit-button:hover {
 }
 .required {
     color: var(--danger);
+}
+
+#inventoryDisplay{
+    background-color: var(--light-grey);
+    color: var(--secondary-color);
 }
 
 #passWordBtn {

@@ -8,7 +8,6 @@
 const express = require('express')
 const expressLayouts = require('express-ejs-layouts')
 const env = require('dotenv').config()
-const app = express()
 const session = require('express-session')
 const pool = require('./database')
 const utilities = require('./utilities')
@@ -18,6 +17,9 @@ const inventoryRoute = require('./routes/inventoryRoute')
 const accountRoute = require('./routes/accountRoute')
 const errorRoute = require('./routes/errorRoute')
 const bodyParser = require('body-parser')
+const cookieParser = require("cookie-parser");
+
+const app = express()
 
 /* ***********************
  * Middleware
@@ -35,6 +37,7 @@ app.use(
     })
 )
 
+// Unit 4, Activity
 // Express Messages Middleware
 app.use(require('connect-flash')())
 app.use(function (req, res, next) {
@@ -42,8 +45,15 @@ app.use(function (req, res, next) {
     next()
 })
 
+// Unit 4, Process Registration Activity
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
+// Unit 5, Login activity
+app.use(cookieParser())
+
+// Unit 5, Login Process activity
+app.use(utilities.checkJWTToken)
 
 /* ***********************
  * View Engine and Templates
@@ -95,6 +105,7 @@ app.use(async (err, req, res, next) => {
         nav,
     })
 })
+
 /* ***********************
  * Local Server Information
  * Values from .env (environment) file
