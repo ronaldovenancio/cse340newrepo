@@ -132,138 +132,111 @@ Util.buildErrorMessage = (heading, quote) => `<section id="error-page">
     </div>
     </section>`
 
-/* **************************************
-* Build the add inventory drop down
-* ************************************ */
-Util.buildDropDownForm = async function(classification_id){
-    let data = await invModel.getClassifications()
-    let classificationList =
-    '<select name="classification_id" id="classificationList" required>'
-    classificationList += "<option value=\"\">Choose a Classification</option>"
-    data.rows.forEach((row) => {
-      classificationList += '<option value="' + row.classification_id + '"'
-      if (classification_id != null && row.classification_id == classification_id) { 
-        classificationList += " selected "
-      }
-      classificationList += ">" + row.classification_name + "</option>"
-    })
-      classificationList += '</select>'
-    return classificationList
-  }
-
-
-  
-/* ************************
- * Constructs the account HTML select options
- ************************** */
-Util.getAccountSelect = async function (selectedOption) {
-    let data = await accountModel.getAccounts()
-    let options = `<option value="">Select a Recipient</option>`
-    data.rows.forEach((row => {
-      options += 
-        `<option value="${row.account_id}"
-        ${row.account_id === Number(selectedOption) ? 'selected': ''}>
-        ${row.account_firstname} ${row.account_lastname}
-        </option>`
-    }))
-    return options
-  }
-
-
 
 /* ************************
  * Constructs the Classification HTML select dropdown
  ************************** */
-Util.buildClassificationDropdown = async function (req, res, next) {
-    let data = await invModel.getClassifications()
-    // console.log(data)
+Util.buildClassificationDropdown = async function (classification_id) {
+  let data = await invModel.getClassifications()
+  // console.log(data)
 
-    // Initialize the list with the opening <select> tag
-    let option = `<select id="classification_id" name="classification_id" value="<%= locals.classification_id %>" required >
-    <option value="" disabled selected>Select a classification</option>`
+  // Initialize the list with the opening <select> tag
+  let option = `<select id="classification_id" name="classification_id" autofocus required >
+  <option value="" disabled selected>Select a classification</option>`
 
-    // Loop through the rows and add each classification as an <option>
-    data.rows.forEach((row) => {
-        option += `<option value="${row.classification_id}">${row.classification_name}</option>`
-    })
+  // Loop through the rows and add each classification as an <option>
+  data.rows.forEach((row) => {
+      const isSelected = classification_id === row.classification_id ? 'selected' : ''
+      option += `<option value="${row.classification_id}" ${isSelected}>${row.classification_name}</option>`
+  })
 
-    option += `</select>`
+  option += `</select>`
 
-    return option
+  return option
 }
-
 
 /* ****************************************
  * Middleware to check token validity
- * Unit 5, Login Process activity
-******************************************* */
+ **************************************** */
 Util.checkJWTToken = (req, res, next) => {
-    if (req.cookies.jwt) {
-     jwt.verify(
-      req.cookies.jwt,
-      process.env.ACCESS_TOKEN_SECRET,
-      function (err, accountData) {
-       if (err) {
-        req.flash("Please log in")
-        res.clearCookie("jwt")
-        return res.redirect("/account/login")
-       }
-       res.locals.accountData = accountData
-       res.locals.loggedin = 1
-       next()
+  if (req.cookies.jwt) {
+      jwt.verify(req.cookies.jwt, process.env.ACCESS_TOKEN_SECRET, function (err, accountData) {
+          if (err) {
+              req.flash('Please log in')
+              res.clearCookie('jwt')
+              return res.redirect('/account/login')
+          }
+          res.locals.accountData = accountData
+          res.locals.loggedin = 1
+          next()
       })
-    } else {
-     next()
-    }
-   }
-
-/* ****************************************
-* Middleware to check user account type
-**************************************** */
-Util.checkAccountType = (req, res, next) => {
-    if (res.locals.loggedin && (res.locals.accountData.account_type == "Employee"|| res.locals.accountData.account_type == "Admin")) { // check if logged in 
-      next() //if logged in, allow user to continue
-    } else {
-      // ask user to log in
-      req.flash("notice", "Access restricted. Please log in as an Employee or Admin.")
-      return res.redirect("/account/login")
-    }
-  }
-
-
-/* ****************************************
- *  Check user authorization, block unauthorized users
- * ************************************ */
-Util.checkAuthorization = async (req, res, next) => {
-    // auth : 0
-    let auth = 0
-    // logged in ? next : 0
-    if (res.locals.loggedin) {
-      const account = res.locals.accountData
-      // admin ? 1 : 0
-      account.account_type == "Admin" 
-        || account.account_type == "Employee" ? auth = 1 : auth = 0 
-    }
-    // !auth ? 404 : next()
-    if (!auth) {
-      req.flash("notice", "Please log in")
-      res.redirect("/account/login")
-      return
-    } else {
+  } else {
       next()
-    }
   }
-  
+}
+
 /* ****************************************
  *  Check Login
  * ************************************ */
 Util.checkLogin = (req, res, next) => {
   if (res.locals.loggedin) {
-    next()
+      next()
   } else {
-    req.flash("notice", "Please log in.")
-    return res.redirect("/account/login")
+      req.flash('notice', 'Please log in.')
+      return res.redirect('/account/login')
   }
+}
+
+/* ****************************************
+ * Middleware to check account type for access
+ **************************************** */
+Util.checkAccountType = (req, res, next) => {
+  const redirectToLogin = (message) => {
+      req.flash('notice', message)
+      // res.clearCookie("jwt");
+      return res.redirect('/account/login')
+  }
+
+  const verifyToken = (token) => {
+      return new Promise((resolve, reject) => {
+          jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, accountData) => {
+              if (err) return reject(err)
+              resolve(accountData)
+          })
+      })
+  }
+
+  if (!req.cookies.jwt) {
+      return redirectToLogin('You are not logged in. Please log in to access this page.')
+  }
+
+  verifyToken(req.cookies.jwt)
+      .then((accountData) => {
+          const { account_type, account_firstname } = accountData
+
+          if (account_type === 'admin' || account_type === 'employee') {
+              req.flash(
+                  'success',
+                  `Welcome back, ${account_firstname}! You are successfully logged in as an ${account_type}.`
+              )
+              res.locals.accountData = accountData
+              res.locals.loggedin = true
+              return next()
+          }
+
+          if (account_type === 'client') {
+              return redirectToLogin(
+                  `Sorry, ${account_firstname}. You must be logged in as an Employee or Admin to access this page.`
+              )
+          }
+
+          // Handle unexpected account types
+          return redirectToLogin('Your account type is not authorized to access this page. Please contact support.')
+      })
+      .catch((err) => {
+          console.error('JWT verification error:', err)
+          return redirectToLogin('Your session has expired or is invalid. Please log in again.')
+      })
 }
 
 /* ****************************************

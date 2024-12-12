@@ -12,7 +12,7 @@ router.get('/type/:classificationId', utilities.handleErrors(invController.build
 router.get('/detail/:inventoryId', utilities.handleErrors(invController.buildByInventoryID))
 
 // Route to build Inventory Management view
-router.get('/', utilities.handleErrors(invController.buildByInvManagement))
+router.get('/', utilities.checkAccountType, utilities.handleErrors(invController.buildByInvManagement))
 
 // Route to build Add Classification View
 router.get('/add-classification', utilities.handleErrors(invController.buildByAddClassification))
@@ -36,12 +36,16 @@ router.post(
     utilities.handleErrors(invController.addInventory)
 )
 
-// Route to build inventory by classification view for management view
-router.get("/getInventory/:classification_id", 
-    utilities.handleErrors(invController.getInventoryJSON));
+// Route to build Get Inventory View
+router.get(
+    '/getInventory/:classification_id',
+    utilities.checkAccountType,
+    utilities.handleErrors(invController.getInventoryJSON)
+)
 
 // Route to build Edit Inventory View
-router.get('/edit/:inventoryId', utilities.handleErrors(invController.buildByEditInventory))
+router.get('/edit/:inventoryId', utilities.checkAccountType, utilities.handleErrors(invController.buildByEditInventory))
+
 
 // Route to handle Edit/Update Inventory
 router.post(
@@ -51,21 +55,10 @@ router.post(
     utilities.handleErrors(invController.updateInventory)
 )    
 
-// Route to delete inventory
-router.get("/delete/:inventory_id", 
-    utilities.checkAccountType, 
-    utilities.handleErrors(invController.buildDeleteInv));
-
 // Route to build Delete Inventory View
-router.get('/delete/:inventoryId', utilities.handleErrors(invController.buildByDeleteInventory))
+router.get('/delete/:inventoryId', utilities.checkAccountType, utilities.handleErrors(invController.buildByDeleteInventory))
 
 // Route to handle Delete Inventory
-router.post(
-    '/delete/',
-    utilities.handleErrors(invController.deleteInventory)
-)
-// Route to process delete inventory
-router.post("/delete/", 
-    utilities.handleErrors(invController.processDeleteInventory));
+router.post('/delete/', utilities.handleErrors(invController.deleteInventory))
 
 module.exports = router

@@ -4,7 +4,7 @@
 // Needed Resources
 const express = require("express")
 const router = new express.Router()
-const utilities = require("../utilities")
+const utilities = require("../utilities/")
 const accountController = require("../controllers/accountController")
 const regValidate = require("../utilities/account-validation")
 
@@ -41,41 +41,48 @@ router.post(
     utilities.handleErrors(accountController.registerAccount)
 )
 
-// Process Management view
-router.get("/", utilities.checkLogin,
-utilities.handleErrors(accountController.buildManagement))
+/* ***********************
+ * Route to build Account Management View
+ *************************/
+router.get('/', utilities.checkLogin,utilities.handleErrors(accountController.buildManagement))
 
-/*
-router.get("/update-account/:accountId", 
-    utilities.checkLogin, 
-    utilities.handleErrors(accountController.buildAccountUpdate))
-
-router.get("/logout",
-    utilities.handleErrors(accountController.buildLogoutView)
-        )
-*/
 
 /* ***********************
- * Route to update account data
+ * Route to build Update Account View
  *************************/
-/*
-router.post(
-    "/update/",
-    regValidate.accountUpdateRules(),
-    regValidate.checkAccountUpdateData,
-    utilities.handleErrors(accountController.processAccountUpdate)
+router.get(
+    '/update/:account_id',
+    utilities.checkLogin,
+    utilities.handleErrors(accountController.buildUpdateAccountView)
 )
-*/
+
 
 /* ***********************
- * Route to update account password
+ * Update Account Information
  *************************/
-/*
 router.post(
-    "/update-password/",
-    regValidate.passwordUpdateRules(),
-    regValidate.checkPasswordUpdateData,
-    utilities.handleErrors(accountController.processPasswordUpdate)
+    '/update-user-info/',
+    utilities.checkLogin,
+    regValidate.updateRegistrationRules(),
+    regValidate.checkUpdateRegData,
+    utilities.handleErrors(accountController.updateAccountInfo)
 )
-*/
-module.exports = router
+
+/* ***********************
+ * Change Password
+ *************************/
+router.post(
+    '/update-user-password/',
+    utilities.checkLogin,
+    regValidate.updatePasswordRules(),
+    regValidate.checkPasswordData,
+    utilities.handleErrors(accountController.updatePassword)
+)
+
+/* ***********************
+ * Route to build Logout View
+ *************************/
+router.get("/logout", utilities.handleErrors(accountController.logout));
+
+
+module.exports = router;
