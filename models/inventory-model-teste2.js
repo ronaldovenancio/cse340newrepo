@@ -1,10 +1,10 @@
 const pool = require("../database")
 
-/* *****************************
-*   Get all accounts (SELECT)
-* *************************** */
-async function getAccounts() {
-  return await pool.query("SELECT * FROM public.account ORDER BY account_email")
+/* ***************************
+ *  Get all classification data
+ * ************************** */
+async function getClassifications() {
+  return await pool.query('SELECT * FROM public.classification ORDER BY classification_name')
 }
 
 /* *****************************

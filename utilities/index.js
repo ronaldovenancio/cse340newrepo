@@ -240,6 +240,85 @@ Util.checkAccountType = (req, res, next) => {
 }
 
 /* ****************************************
+ * Build view for reviews
+ **************************************** */
+Util.buildReviews = async function (data) {
+    const options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    }
+
+    // Return a default message if there are no reviews
+    if (!data || data.length === 0) {
+        return '<p class="zero-review">Be the first to write a review for this vehicle.</p>'
+    }
+
+     // Sort the data by review_date in descending order (most recent first)
+     data.sort((a, b) => new Date(b.review_date) - new Date(a.review_date))
+
+    // Build the review list
+    const reviewList = data
+        .map((row) => {
+            const firstInitial = row.account_firstname?.charAt(0).toUpperCase() || ''
+            const lastName = row.account_lastname || ''
+            const screenName = `${firstInitial}${lastName}`
+            const reviewDate = new Date(row.review_date).toLocaleDateString('en-US', options)
+            const reviewText = row.review_text || 'No review text provided.'
+
+            return `
+        <li>
+            <div class="review-display">
+                <p><strong>${screenName}</strong> wrote on ${reviewDate}</p>
+                <hr/>
+                <p>${reviewText}</p>
+            </div>
+        </li>`
+        })
+        .join('')
+
+    return `<ul class="review-list">${reviewList}</ul>`
+}
+
+/* ****************************************
+ * Build view for My reviews - account management page
+ **************************************** */
+Util.buildMyReviews = async function (data) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' }
+
+    // Return a default message if there are no reviews
+    if (!data || data.length === 0) {
+        return '<p class="zero-review">You have no reviews.</p>'
+    }
+
+     // Sort the data by review_date in descending order (most recent first)
+     data.sort((a, b) => new Date(b.review_date) - new Date(a.review_date))
+
+    // Build the review list
+    const reviewList = data
+        .map((row) => {
+            const reviewDate = new Date(row.review_date).toLocaleDateString('en-US', options)
+
+            return `
+        <li>
+            <div class="my-review-display">
+                <p>Reviewed the <strong>${row.inv_year} ${row.inv_make} ${row.inv_model}</strong> on ${reviewDate}</p>
+                <div class="my-review-links">
+                <a href='/inv/detail/${row.inv_id}' class='btn btn-view-auto' title='Click to view'>View</a>
+                    <a href='/review/edit-review/${row.review_id}' class='btn btn-mod-auto' title='Click to update'>Edit</a>
+                    <a href='/review/delete-review/${row.review_id}' class='btn btn-del-auto' title='Click to delete'>Delete</a>
+                </div>
+            </div>
+        </li>`
+        })
+        .join('')
+
+    return `<ol type="1" class="my-list">${reviewList}</ol>`
+}
+
+
+
+/* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for
  * General Error Handling

@@ -9,12 +9,13 @@ const express = require('express')
 const expressLayouts = require('express-ejs-layouts')
 const env = require('dotenv').config()
 const session = require('express-session')
-const pool = require('./database')
+const pool = require('./database/')
 const utilities = require('./utilities/')
 const baseController = require('./controllers/baseController')
 const static = require('./routes/static')
 const inventoryRoute = require('./routes/inventoryRoute')
 const accountRoute = require('./routes/accountRoute')
+const reviewRoute = require('./routes/reviewRoute')
 const errorRoute = require('./routes/errorRoute')
 const bodyParser = require('body-parser')
 const cookieParser = require("cookie-parser");
@@ -74,6 +75,8 @@ app.use('/inv', utilities.handleErrors(inventoryRoute))
 app.use('/account', utilities.handleErrors(accountRoute))
 // Error routes
 app.use('/error', utilities.handleErrors(errorRoute))
+// Review routes
+app.use('/review', utilities.handleErrors(reviewRoute))
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {

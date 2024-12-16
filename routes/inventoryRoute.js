@@ -2,6 +2,7 @@
 const express = require("express");
 const router = new express.Router()
 const invController = require("../controllers/invController");
+const revController = require('../controllers/reviewController');
 const utilities = require("../utilities/");
 const regValidate = require("../utilities/inventory-validation");
 
