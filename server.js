@@ -8,7 +8,6 @@
 const express = require('express')
 const expressLayouts = require('express-ejs-layouts')
 const env = require('dotenv').config()
-const app = express()
 const session = require('express-session')
 const pool = require('./database/')
 const utilities = require('./utilities/')
@@ -19,7 +18,9 @@ const accountRoute = require('./routes/accountRoute')
 const reviewRoute = require('./routes/reviewRoute')
 const errorRoute = require('./routes/errorRoute')
 const bodyParser = require('body-parser')
-const cookieParser = require("cookie-parser")
+const cookieParser = require("cookie-parser");
+
+const app = express()
 
 /* ***********************
  * Middleware
@@ -37,6 +38,7 @@ app.use(
     })
 )
 
+// Unit 4, Activity
 // Express Messages Middleware
 app.use(require('connect-flash')())
 app.use(function (req, res, next) {
@@ -44,9 +46,14 @@ app.use(function (req, res, next) {
     next()
 })
 
+// Unit 4, Process Registration Activity
 app.use(bodyParser.json())
-app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
+// Unit 5, Login activity
+app.use(cookieParser())
+
+// Unit 5, Login Process activity
 app.use(utilities.checkJWTToken)
 
 /* ***********************
@@ -66,15 +73,15 @@ app.get('/', utilities.handleErrors(baseController.buildHome))
 app.use('/inv', utilities.handleErrors(inventoryRoute))
 // Account routes
 app.use('/account', utilities.handleErrors(accountRoute))
-// Review routes
-app.use('/review', utilities.handleErrors(reviewRoute))
 // Error routes
 app.use('/error', utilities.handleErrors(errorRoute))
+// Review routes
+app.use('/review', utilities.handleErrors(reviewRoute))
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
-    const heading = 'You seem to have lost a few parts?'
-    const quote = `Sorry, we couldn't find the page you're looking for :-( <br> But you could try any of the pages in the menu-bar.`
+    const heading = "You seem to have lost a few parts?"
+    const quote = "Sorry, we couldn't find the page you're looking for. <br> But you could try any of the pages in the menu-bar."
     next({ status: 404, message: utilities.buildErrorMessage(heading, quote) })
 })
 /* ***********************
@@ -101,6 +108,7 @@ app.use(async (err, req, res, next) => {
         nav,
     })
 })
+
 /* ***********************
  * Local Server Information
  * Values from .env (environment) file
