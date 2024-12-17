@@ -1,5 +1,5 @@
 const invModel = require("../models/inventory-model")
-const reviewModel = require('../models/review-model')
+const reviewModel = require("../models/review-model")
 const utilities = require("../utilities/")
 
 const invCont = {}

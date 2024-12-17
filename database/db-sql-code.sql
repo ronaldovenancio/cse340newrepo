@@ -67,6 +67,7 @@ CREATE TABLE IF NOT EXISTS public.review (
     CONSTRAINT fk_account FOREIGN KEY (account_id) REFERENCES public.account (account_id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE NO ACTION
 );
 
+
 -- UPDATE public.account
 -- SET account_type = 'admin'::account_type
 -- WHERE account_firstname = 'Manager'

@@ -44,7 +44,7 @@ router.post(
 /* ***********************
  * Route to build Account Management View
  *************************/
-router.get('/', utilities.checkLogin,utilities.handleErrors(accountController.buildManagement))
+router.get('/', utilities.checkLogin, utilities.handleErrors(accountController.buildManagement))
 
 
 /* ***********************
