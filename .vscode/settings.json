@@ -11,8 +11,8 @@
             "server": "localhost",
             "driver": "PostgreSQL",
             "name": "render.com",
-            "database": "cse340_b603",
-            "username": "cse340",
+            "database": "cse340_final_idvp",
+            "username": "cse340_final",
             "connectString": "postgresql://cse340:hdZI2RMTgULq7a5JoxGDtEGwgMPRLs2c@dpg-cslmum3tq21c73elhovg-a.oregon-postgres.render.com/cse340_b603"
         }
     ]
