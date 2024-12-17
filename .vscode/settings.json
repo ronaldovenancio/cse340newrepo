@@ -13,7 +13,7 @@
             "name": "render.com",
             "database": "cse340_final_idvp",
             "username": "cse340_final",
-            "connectString": "postgresql://cse340:hdZI2RMTgULq7a5JoxGDtEGwgMPRLs2c@dpg-cslmum3tq21c73elhovg-a.oregon-postgres.render.com/cse340_b603"
+            "connectString": "postgresql://cse340_final:dosolT8fTTOur7YsnUraMw97hKiz9YkI@dpg-ctgo1e56l47c73e8qspg-a.oregon-postgres.render.com/cse340_final_idvp"
         }
     ]
 }
