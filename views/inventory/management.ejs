@@ -14,6 +14,7 @@
     </ul>
     <% } %>
     
+    <!-- Content Block -->
     <div class="container">
         <div class="management-container">
             <!-- Add New Classification View TASK 2 -->
@@ -21,18 +22,18 @@
             <!-- Add New Inventory View TASK 3 -->
             <a href="/inv/add-inventory" class="submit-button">Add New Inventory</a>
         </div>
+        <section class="management-container">
+            <h2>Manage Inventory</h2>
+            <p>Select a classification from the list to see the items belonging to the classification.</p>
+            <div class="input">
+                <label for="classification_id">Classification List</label>
+                <%- classificationSelect %>
+            </div>
+            
+    
+            <table id="inventoryDisplay"></table>
+            <noscript>JavaScript must be enabled to use this page.</noscript>
+        </section>
     </div>
-    <section class="management-container">
-        <h2>Manage Inventory</h2>
-        <p>Select a classification from the list to see the items belonging to the classification.</p>
-        <div class="input">
-            <label for="classification_id">Classification List</label>
-            <%- classificationSelect %>
-        </div>
-        
-        <table id="inventoryDisplay"></table>
-        <noscript>JavaScript must be enabled to use this page.</noscript>
-    </section>
-</div>
-
-<script src="/js/inventory.js"></script>
+    
+    <script src="/js/inventory.js"></script>
