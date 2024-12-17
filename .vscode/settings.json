@@ -1,5 +1,4 @@
 {
-    "liveServer.settings.port": 5500,
     "sqltools.connections": [
         {
             "pgOptions": {
@@ -11,8 +10,8 @@
             "server": "localhost",
             "driver": "PostgreSQL",
             "name": "CSE340-Render",
-            "database": "cse340_final_idvp",
-            "username": "cse340_final",
+           // "database": "cse340_final_idvp",
+          //  "username": "cse340_final",
             "connectString": "postgresql://cse340_final:dosolT8fTTOur7YsnUraMw97hKiz9YkI@dpg-ctgo1e56l47c73e8qspg-a.oregon-postgres.render.com/cse340_final_idvp"
         }
     ]
